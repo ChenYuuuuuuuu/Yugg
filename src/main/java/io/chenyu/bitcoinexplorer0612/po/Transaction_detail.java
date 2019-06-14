@@ -1,6 +1,6 @@
-package io.chenyu.test522.po;
+package io.chenyu.bitcoinexplorer0612.po;
 
-public class TransactionDetail {
+public class Transaction_detail {
     private Long txDetailId;
 
     private String address;

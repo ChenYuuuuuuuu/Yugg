@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.chenyu.test522.dao.BlockMapper">
-  <resultMap id="BaseResultMap" type="io.chenyu.test522.po.Block">
+<mapper namespace="io.chenyu.bitcoinexplorer0612.dao.BlockMapper">
+  <resultMap id="BaseResultMap" type="io.chenyu.bitcoinexplorer0612.po.Block">
     <id column="blockhash" jdbcType="CHAR" property="blockhash" />
     <result column="height" jdbcType="INTEGER" property="height" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
@@ -32,7 +32,7 @@
     delete from block
     where blockhash = #{blockhash,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="io.chenyu.test522.po.Block">
+  <insert id="insert" parameterType="io.chenyu.bitcoinexplorer0612.po.Block">
     insert into block (blockhash, height, time, 
       txSize, size, difficulty, 
       weight, next_block, prev_block, 
@@ -46,7 +46,7 @@
       #{version,jdbcType=CHAR}, #{noce,jdbcType=INTEGER}, #{blockReward,jdbcType=DOUBLE}
       )
   </insert>
-  <insert id="insertSelective" parameterType="io.chenyu.test522.po.Block">
+  <insert id="insertSelective" parameterType="io.chenyu.bitcoinexplorer0612.po.Block">
     insert into block
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="blockhash != null">
@@ -143,7 +143,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="io.chenyu.test522.po.Block">
+  <update id="updateByPrimaryKeySelective" parameterType="io.chenyu.bitcoinexplorer0612.po.Block">
     update block
     <set>
       <if test="height != null">
@@ -191,7 +191,7 @@
     </set>
     where blockhash = #{blockhash,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="io.chenyu.test522.po.Block">
+  <update id="updateByPrimaryKey" parameterType="io.chenyu.bitcoinexplorer0612.po.Block">
     update block
     set height = #{height,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP},

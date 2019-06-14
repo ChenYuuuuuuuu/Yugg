@@ -1,4 +1,4 @@
-package io.chenyu.test522.dto;
+package io.chenyu.bitcoinexplorer0612.dto;
 
 public class BlockGetDTO {
     private String blockhash;

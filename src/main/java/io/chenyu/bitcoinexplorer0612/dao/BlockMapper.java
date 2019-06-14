@@ -1,6 +1,6 @@
-package io.chenyu.test522.dao;
+package io.chenyu.bitcoinexplorer0612.dao;
 
-import io.chenyu.test522.po.Block;
+import io.chenyu.bitcoinexplorer0612.po.Block;
 
 public interface BlockMapper {
     int deleteByPrimaryKey(String blockhash);

@@ -1,4 +1,4 @@
-package io.chenyu.test522.po;
+package io.chenyu.bitcoinexplorer0612.po;
 
 import java.util.Date;
 

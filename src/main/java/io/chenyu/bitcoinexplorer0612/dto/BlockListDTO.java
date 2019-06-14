@@ -1,8 +1,8 @@
-package io.chenyu.test522.po;
+package io.chenyu.bitcoinexplorer0612.dto;
 
 import java.util.Date;
 
-public class Block {
+public class BlockListDTO {
     private String blockhash;
 
     private Integer height;
@@ -15,7 +15,7 @@ public class Block {
 
     private Double difficulty;
 
-    private Float weight;
+    private Double weight;
 
     private String nextBlock;
 
@@ -38,7 +38,7 @@ public class Block {
     }
 
     public void setBlockhash(String blockhash) {
-        this.blockhash = blockhash == null ? null : blockhash.trim();
+        this.blockhash = blockhash;
     }
 
     public Integer getHeight() {
@@ -81,11 +81,11 @@ public class Block {
         this.difficulty = difficulty;
     }
 
-    public Float getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Float weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
@@ -94,7 +94,7 @@ public class Block {
     }
 
     public void setNextBlock(String nextBlock) {
-        this.nextBlock = nextBlock == null ? null : nextBlock.trim();
+        this.nextBlock = nextBlock;
     }
 
     public String getPrevBlock() {
@@ -102,7 +102,7 @@ public class Block {
     }
 
     public void setPrevBlock(String prevBlock) {
-        this.prevBlock = prevBlock == null ? null : prevBlock.trim();
+        this.prevBlock = prevBlock;
     }
 
     public Date getTimestamp() {
@@ -134,7 +134,7 @@ public class Block {
     }
 
     public void setVersion(String version) {
-        this.version = version == null ? null : version.trim();
+        this.version = version;
     }
 
     public Integer getNoce() {

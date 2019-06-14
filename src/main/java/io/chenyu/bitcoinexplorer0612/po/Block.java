@@ -1,8 +1,8 @@
-package io.chenyu.test522.dto;
+package io.chenyu.bitcoinexplorer0612.po;
 
 import java.util.Date;
 
-public class BlockListDTO {
+public class Block {
     private String blockhash;
 
     private Integer height;
@@ -38,7 +38,7 @@ public class BlockListDTO {
     }
 
     public void setBlockhash(String blockhash) {
-        this.blockhash = blockhash;
+        this.blockhash = blockhash == null ? null : blockhash.trim();
     }
 
     public Integer getHeight() {
@@ -94,7 +94,7 @@ public class BlockListDTO {
     }
 
     public void setNextBlock(String nextBlock) {
-        this.nextBlock = nextBlock;
+        this.nextBlock = nextBlock == null ? null : nextBlock.trim();
     }
 
     public String getPrevBlock() {
@@ -102,7 +102,7 @@ public class BlockListDTO {
     }
 
     public void setPrevBlock(String prevBlock) {
-        this.prevBlock = prevBlock;
+        this.prevBlock = prevBlock == null ? null : prevBlock.trim();
     }
 
     public Date getTimestamp() {
@@ -134,7 +134,7 @@ public class BlockListDTO {
     }
 
     public void setVersion(String version) {
-        this.version = version;
+        this.version = version == null ? null : version.trim();
     }
 
     public Integer getNoce() {
