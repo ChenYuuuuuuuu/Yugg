@@ -16,6 +16,12 @@ CREATE TABLE `block`
   `weight`     float,
   `next_block` char(64),
   `prev_block` char(64),
+  `timestamp`       datetime,
+  `received`       datetime,
+   `bits`       int,
+    `version`       char,
+     `noce`       int,
+     `block_reward` double,
   PRIMARY KEY (`blockhash`),
   index `idx_height` (`height`),
   index `idx_time` (`time`)
