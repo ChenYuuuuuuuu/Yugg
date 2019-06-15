@@ -12,7 +12,11 @@ public class BlockGetDTO {
     private Long time;
     private Double difficulty;
     private Integer size;
-
+    private Double total_input;
+    private Double total_output;
+    private Double fee_per_byte;
+    private Double fee_per_weight_unit;
+    private Double estimated;
     public String getBlockhash() {
         return blockhash;
     }
@@ -99,5 +103,45 @@ public class BlockGetDTO {
 
     public void setSize(Integer size) {
         this.size = size;
+    }
+
+    public Double getTotal_input() {
+        return total_input;
+    }
+
+    public void setTotal_input(Double total_input) {
+        this.total_input = total_input;
+    }
+
+    public Double getTotal_output() {
+        return total_output;
+    }
+
+    public void setTotal_output(Double total_output) {
+        this.total_output = total_output;
+    }
+
+    public Double getFee_per_byte() {
+        return fee_per_byte;
+    }
+
+    public void setFee_per_byte(Double fee_per_byte) {
+        this.fee_per_byte = fee_per_byte;
+    }
+
+    public Double getFee_per_weight_unit() {
+        return fee_per_weight_unit;
+    }
+
+    public void setFee_per_weight_unit(Double fee_per_weight_unit) {
+        this.fee_per_weight_unit = fee_per_weight_unit;
+    }
+
+    public Double getEstimated() {
+        return estimated;
+    }
+
+    public void setEstimated(Double estimated) {
+        this.estimated = estimated;
     }
 }
