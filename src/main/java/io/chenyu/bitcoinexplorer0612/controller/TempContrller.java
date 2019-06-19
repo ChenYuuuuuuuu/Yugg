@@ -5,12 +5,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPObject;
 import io.chenyu.bitcoinexplorer0612.api.BitcoinJsonRpcApi;
 import io.chenyu.bitcoinexplorer0612.api.BitcoinRestApi;
+import io.chenyu.bitcoinexplorer0612.dao.BlockMapper;
+import io.chenyu.bitcoinexplorer0612.po.Block;
+import io.chenyu.bitcoinexplorer0612.service.BitcoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,6 +25,11 @@ public class TempContrller  {
     private BitcoinRestApi bitcoinRestApi;
     @Autowired
     private BitcoinJsonRpcApi bitcoinJsonRpcApi;
+    @Autowired
+    private BlockMapper blockMapper;
+    @Autowired
+    private BitcoinService bitcoinService;
+
     @GetMapping("/test")
     public String test() throws Throwable {
 
@@ -51,12 +60,15 @@ public class TempContrller  {
 //        JSONObject blockchainInfo = bitcoinJsonRpcApi.getBlockchainInfo();
 //        return null;
 
-        JSONObject blockbyHash = bitcoinJsonRpcApi.getBlockbyHash("0000000000000487fe95dd1e0bb61aba58561c2dd3a81f384ae555af2f732eca");
-        JSONObject transactionbyTxid = bitcoinJsonRpcApi.getTransactionbyTxid("8805caef3720c4589973a3544c391a1e307e4ad7ecba484c6e56d617bf2b00a1");
-        JSONObject blockchainInfo = bitcoinJsonRpcApi.getBlockchainInfo();
-        JSONObject blockhashByHeight = bitcoinJsonRpcApi.getBlockhashByHeight(1543827);
-        JSONObject memPool = bitcoinJsonRpcApi.getMemPool();
-        JSONObject recentBlocks = bitcoinJsonRpcApi.getRecentBlocks();
+//        JSONObject blockbyHash = bitcoinJsonRpcApi.getBlockbyHash("0000000000000487fe95dd1e0bb61aba58561c2dd3a81f384ae555af2f732eca");
+//        JSONObject transactionbyTxid = bitcoinJsonRpcApi.getTransactionbyTxid("8805caef3720c4589973a3544c391a1e307e4ad7ecba484c6e56d617bf2b00a1");
+//        JSONObject blockchainInfo = bitcoinJsonRpcApi.getBlockchainInfo();
+//        JSONObject blockhashByHeight = bitcoinJsonRpcApi.getBlockhashByHeight(1543827);
+//        JSONObject memPool = bitcoinJsonRpcApi.getMemPool();
+//        JSONObject recentBlocks = bitcoinJsonRpcApi.getRecentBlocks();
+        String tempBlockhash="000000000000001e2e7243a50b448c877eb98e64fa7615154631d7ade7f1b256";
+        bitcoinService.syncBlockhash(tempBlockhash);
+
         return null;
     }
 

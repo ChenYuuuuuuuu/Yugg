@@ -209,4 +209,13 @@
       block_reward = #{blockReward,jdbcType=DOUBLE}
     where blockhash = #{blockhash,jdbcType=CHAR}
   </update>
+
+
+  <select id="selectRecentBlocks"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+   order by height desc
+    limit 5
+  </select>
 </mapper>
