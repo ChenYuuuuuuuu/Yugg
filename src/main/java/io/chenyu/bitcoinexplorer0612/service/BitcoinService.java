@@ -6,15 +6,15 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.Date;
 
 public interface BitcoinService {
-        void syncBlockhash(String blockhash);
+        void syncBlockhash(String blockhash) throws Throwable;
 
-    void syncTx(JSONObject txJson, String blockhash, Date time, Integer confirmations);
+    void syncTx(JSONObject txJson, String blockhash, Date time, Integer confirmations) throws Throwable;
 
-    void syncTxDetail(JSONObject txJson,String txid);
+    void syncTxDetail(JSONObject txJson,String txid) throws Throwable;
 
     void syncTxDetailVout(JSONArray vouts,String txid);
 
-    void syncTxDetailVin(JSONArray vins);
+    void syncTxDetailVin(JSONArray vins,String txid) throws Throwable;
 
 
 

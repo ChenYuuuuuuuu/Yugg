@@ -2,6 +2,7 @@ package io.chenyu.bitcoinexplorer0612.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.chenyu.bitcoinexplorer0612.api.BitcoinJsonRpcApi;
 import io.chenyu.bitcoinexplorer0612.api.BitcoinRestApi;
 import io.chenyu.bitcoinexplorer0612.dao.BlockMapper;
 import io.chenyu.bitcoinexplorer0612.dao.TransactionMapper;
@@ -29,6 +30,8 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Autowired
     private BitcoinRestApi bitcoinRestApi;
     @Autowired
+    private BitcoinJsonRpcApi bitcoinJsonRpcApi;
+    @Autowired
     private TransactionMapper transactionMapper;
 
     @Autowired
@@ -37,7 +40,7 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Override
     @Async
     @Transactional
-    public void syncBlockhash(String blockhash) {
+    public void syncBlockhash(String blockhash) throws Throwable {
         String tempBlockhash = blockhash;
         while (tempBlockhash != null && !tempBlockhash.isEmpty()) {
             JSONObject blockJson = bitcoinRestApi.getblockbyhash(tempBlockhash);
@@ -68,7 +71,7 @@ public class BitcoinServiceImpl implements BitcoinService {
 
     @Override
     @Transactional
-    public void syncTx(JSONObject txJson, String blockhash, Date time, Integer confirmations) {
+    public void syncTx(JSONObject txJson, String blockhash, Date time, Integer confirmations) throws Throwable {
         Transaction tx = new Transaction();
        String txid = txJson.getString("txid");
         tx.setTxhash(txid);
@@ -84,14 +87,16 @@ public class BitcoinServiceImpl implements BitcoinService {
     }
 
     @Override
-    public void syncTxDetail(JSONObject txJson,String txid) {
+    @Transactional
+    public void syncTxDetail(JSONObject txJson,String txid) throws Throwable {
         JSONArray vouts = txJson.getJSONArray("vout");
         syncTxDetailVout(vouts, txid);
         JSONArray vins = txJson.getJSONArray("vin");
-        syncTxDetailVin(vins);
+        syncTxDetailVin(vins,txid);
     }
 
     @Override
+    @Transactional
     public void syncTxDetailVout(JSONArray vouts,String txid) {
             for(Object voutObj :vouts){
                 JSONObject jsonObject = new JSONObject((LinkedHashMap) voutObj);
@@ -113,8 +118,31 @@ public class BitcoinServiceImpl implements BitcoinService {
     }
 
     @Override
-    public void syncTxDetailVin(JSONArray vins) {
+    @Transactional
+    public void syncTxDetailVin(JSONArray vins,String txid) throws Throwable {
+        for(Object vinobj :vins){
+            JSONObject jsonObject = new JSONObject((LinkedHashMap) vinobj);
+            String vinTxid = jsonObject.getString("txid");
+            Integer n = jsonObject.getInteger("vout");
+            if(vinTxid !=null){
+                JSONObject vinTxJson = bitcoinJsonRpcApi.getTransactionbyTxid(vinTxid);
+                JSONArray vouts = vinTxJson.getJSONArray("vout");
+                JSONObject utxoJson = vouts.getJSONObject(n);
 
+                Transaction_detail txDetail = new Transaction_detail();
+                txDetail.setAmount(-utxoJson.getDouble("value"));
+                txDetail.setTxhash(txid);
+                txDetail.setType((byte) TxDetailType.Send.ordinal());
+                JSONObject scriptPubKey = utxoJson.getJSONObject("scriptPubKey");
+                JSONArray addresses = scriptPubKey.getJSONArray("addresses");
+                if(addresses !=null){
+                    String address = addresses.getString(0);
+                    txDetail.setAddress(address);
+                }
+                transaction_detailMapper.insert(txDetail);
+
+            }
+        }
     }
 
 
