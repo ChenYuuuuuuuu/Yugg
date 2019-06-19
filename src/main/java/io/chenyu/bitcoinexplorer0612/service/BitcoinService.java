@@ -6,7 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.Date;
 
 public interface BitcoinService {
-        void syncBlockhash(String blockhash) throws Throwable;
+
+    void syncBlockchainFromHash(String blockhash) throws Throwable;
+
+    String  syncBlockhash(String blockhash) throws Throwable;
 
     void syncTx(JSONObject txJson, String blockhash, Date time, Integer confirmations) throws Throwable;
 
