@@ -1,6 +1,7 @@
 package io.chenyu.bitcoinexplorer0612.dao;
 
 import io.chenyu.bitcoinexplorer0612.po.Transaction_detail;
+import org.apache.ibatis.annotations.Param;
 
 public interface Transaction_detailMapper {
     int deleteByPrimaryKey(Long txDetailId);
@@ -14,4 +15,6 @@ public interface Transaction_detailMapper {
     int updateByPrimaryKeySelective(Transaction_detail record);
 
     int updateByPrimaryKey(Transaction_detail record);
+
+    Double getBlance(@Param("address") String address);
 }

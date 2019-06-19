@@ -1,6 +1,7 @@
 package io.chenyu.bitcoinexplorer0612.dao;
 
 import io.chenyu.bitcoinexplorer0612.po.Transaction;
+import org.apache.ibatis.annotations.Param;
 
 public interface TransactionMapper {
     int deleteByPrimaryKey(String txhash);
@@ -14,4 +15,6 @@ public interface TransactionMapper {
     int updateByPrimaryKeySelective(Transaction record);
 
     int updateByPrimaryKey(Transaction record);
+
+
 }
