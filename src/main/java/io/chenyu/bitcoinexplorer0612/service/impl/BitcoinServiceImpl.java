@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import io.chenyu.bitcoinexplorer0612.api.BitcoinRestApi;
 import io.chenyu.bitcoinexplorer0612.dao.BlockMapper;
 import io.chenyu.bitcoinexplorer0612.dao.TransactionMapper;
+import io.chenyu.bitcoinexplorer0612.dao.Transaction_detailMapper;
+import io.chenyu.bitcoinexplorer0612.enumeration.TxDetailType;
 import io.chenyu.bitcoinexplorer0612.po.Block;
 import io.chenyu.bitcoinexplorer0612.po.Transaction;
 import io.chenyu.bitcoinexplorer0612.po.Transaction_detail;
@@ -28,6 +30,9 @@ public class BitcoinServiceImpl implements BitcoinService {
     private BitcoinRestApi bitcoinRestApi;
     @Autowired
     private TransactionMapper transactionMapper;
+
+    @Autowired
+    private Transaction_detailMapper transaction_detailMapper;
 
     @Override
     @Async
@@ -65,7 +70,8 @@ public class BitcoinServiceImpl implements BitcoinService {
     @Transactional
     public void syncTx(JSONObject txJson, String blockhash, Date time, Integer confirmations) {
         Transaction tx = new Transaction();
-        tx.setTxhash(txJson.getString("txid"));
+       String txid = txJson.getString("txid");
+        tx.setTxhash(txid);
         tx.setBlockhash(blockhash);
         tx.setTime(time);
         tx.setSize(txJson.getInteger("size"));
@@ -73,22 +79,33 @@ public class BitcoinServiceImpl implements BitcoinService {
         tx.setConfirmations(confirmations);
         transactionMapper.insert(tx);
         //todo set tx detail
-        syncTxDetail(txJson);
+        syncTxDetail(txJson, txid);
         //todo set tx amount
     }
 
     @Override
-    public void syncTxDetail(JSONObject txJson) {
+    public void syncTxDetail(JSONObject txJson,String txid) {
         JSONArray vouts = txJson.getJSONArray("vout");
-        syncTxDetailVout(vouts);
+        syncTxDetailVout(vouts, txid);
         JSONArray vins = txJson.getJSONArray("vin");
         syncTxDetailVin(vins);
     }
 
     @Override
-    public void syncTxDetailVout(JSONArray vouts) {
+    public void syncTxDetailVout(JSONArray vouts,String txid) {
             for(Object voutObj :vouts){
                 JSONObject jsonObject = new JSONObject((LinkedHashMap) voutObj);
+                Transaction_detail txDetail = new Transaction_detail();
+                txDetail.setAmount(jsonObject.getDouble("value"));
+                txDetail.setTxhash(txid);
+                txDetail.setType((byte) TxDetailType.Receive.ordinal());
+                JSONObject scriptPubKey = jsonObject.getJSONObject("scriptPubKey");
+                JSONArray addresses = scriptPubKey.getJSONArray("addresses");
+                if(addresses!=null){
+                    String address = addresses.getString(0);
+                    txDetail.setAddress(address);
+                }
+                transaction_detailMapper.insert(txDetail);
             }
 
 
