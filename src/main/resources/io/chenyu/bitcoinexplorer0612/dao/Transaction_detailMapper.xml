@@ -95,4 +95,15 @@
     select sum(amount) from transaction_detail
     where address = #{address}
   </select>
+
+  <select id="search" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from transaction_detail
+    <where>
+      <if test="tx_id!=null and tx_id!=''">
+        tx_detail_id like CONCAT('%',#{tx_id},'%')
+      </if>
+    </where>
+  </select>
 </mapper>

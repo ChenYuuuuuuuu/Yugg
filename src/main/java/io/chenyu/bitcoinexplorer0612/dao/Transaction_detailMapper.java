@@ -1,5 +1,6 @@
 package io.chenyu.bitcoinexplorer0612.dao;
 
+import com.github.pagehelper.Page;
 import io.chenyu.bitcoinexplorer0612.po.Transaction_detail;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,6 @@ public interface Transaction_detailMapper {
     int updateByPrimaryKey(Transaction_detail record);
 
     Double getBlance(@Param("address") String address);
+
+    Page<Transaction_detail> search(@Param("tx_id") Integer tx_id);
 }

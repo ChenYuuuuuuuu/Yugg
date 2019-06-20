@@ -66,8 +66,8 @@ public class TempContrller  {
 //        JSONObject blockhashByHeight = bitcoinJsonRpcApi.getBlockhashByHeight(1543827);
 //        JSONObject memPool = bitcoinJsonRpcApi.getMemPool();
 //        JSONObject recentBlocks = bitcoinJsonRpcApi.getRecentBlocks();
-        String tempBlockhash="00000000000006ffbe9046cd2c1da3fe1b295310cf32cf6c9b55e270f5332b9b";
-        bitcoinService.syncBlockhash(tempBlockhash);
+        String tempBlockhash="0000000000001d952b79f8068c0bec3e6f080d8860ce793c0b6e9ceb94f70496";
+        bitcoinService.syncBlockchainFromHash(tempBlockhash);
 
         return null;
     }

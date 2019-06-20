@@ -114,4 +114,16 @@
       confirmations = #{confirmations,jdbcType=INTEGER}
     where txhash = #{txhash,jdbcType=CHAR}
   </update>
+
+
+  <select id="search" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from transaction
+    <where>
+      <if test="txhash!=null and txhash!=''">
+        txhash like CONCAT('%',#{txhash},'%')
+      </if>
+    </where>
+  </select>
 </mapper>
