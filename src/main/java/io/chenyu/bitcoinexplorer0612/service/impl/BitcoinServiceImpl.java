@@ -102,6 +102,7 @@ public class BitcoinServiceImpl implements BitcoinService {
         syncTxDetailVin(vins,txid);
     }
 
+    //支出
     @Override
     @Transactional
     public void syncTxDetailVout(JSONArray vouts,String txid) {
@@ -124,6 +125,8 @@ public class BitcoinServiceImpl implements BitcoinService {
 
     }
 
+
+//    支入
     @Override
     @Transactional
     public void syncTxDetailVin(JSONArray vins,String txid) throws Throwable {

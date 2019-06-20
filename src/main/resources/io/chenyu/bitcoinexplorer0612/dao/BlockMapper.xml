@@ -32,7 +32,7 @@
     delete from block
     where blockhash = #{blockhash,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="io.chenyu.bitcoinexplorer0612.po.Block">
+  <insert id="insert" parameterType="io.chenyu.bitcoinexplorer0612.po.Block" >
     insert into block (blockhash, height, time, 
       txSize, size, difficulty, 
       weight, next_block, prev_block, 
@@ -40,7 +40,7 @@
       version, noce, block_reward
       )
     values (#{blockhash,jdbcType=CHAR}, #{height,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
-      #{txsize,jdbcType=SMALLINT}, #{size,jdbcType=INTEGER}, #{difficulty,jdbcType=DOUBLE}, 
+      #{txsize,jdbcType=SMALLINT}, #{size,jdbcType=INTEGER}, #{difficulty,jdbcType=DOUBLE},
       #{weight,jdbcType=REAL}, #{nextBlock,jdbcType=CHAR}, #{prevBlock,jdbcType=CHAR}, 
       #{timestamp,jdbcType=TIMESTAMP}, #{received,jdbcType=TIMESTAMP}, #{bits,jdbcType=INTEGER}, 
       #{version,jdbcType=CHAR}, #{noce,jdbcType=INTEGER}, #{blockReward,jdbcType=DOUBLE}
