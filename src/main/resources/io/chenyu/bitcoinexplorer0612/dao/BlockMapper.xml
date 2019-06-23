@@ -235,5 +235,25 @@
       </if>
     </where>
   </select>
+  <select id="searchbyheight" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+    <where>
+      <if test="height!=null and height!=''">
+        height like CONCAT('%',#{height},'%')
+      </if>
+    </where>
+  </select>
 
+  <select id="searchbyhash" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+    <where>
+      <if test="blockhash!=null and blockhash!=''">
+        blockhash like CONCAT('%',#{blockhash},'%')
+      </if>
+    </where>
+  </select>
 </mapper>
