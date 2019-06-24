@@ -106,4 +106,22 @@
       </if>
     </where>
   </select>
+
+  <select id="searchbyaddress" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from transaction_detail
+    <where>
+      <if test="address!=null and address!=''">
+        address like CONCAT('%',#{address},'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="gettransaction_detailbyhash" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from transaction_detail
+    wherer txhash=#{txhash}
+  </select>
 </mapper>

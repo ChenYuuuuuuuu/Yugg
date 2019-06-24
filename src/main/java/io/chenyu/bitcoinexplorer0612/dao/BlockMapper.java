@@ -23,9 +23,11 @@ public interface BlockMapper {
 
     Page<Block> search(@Param("height") Integer height,@Param("blockhash") String blockhash);
 
-    Page<Block> search(@Param("blockhash") String blockhash);
-
     Block searchbyheight(@Param("height") Integer height);
 
     List<Block> searchbyhash(@Param("blockhash") String blockhash);
+
+    List<Block> getblock_detail(@Param("height") Integer height);
+
+    List<Block> getblock_detailbyhash(@Param("hash") String hash);
 }

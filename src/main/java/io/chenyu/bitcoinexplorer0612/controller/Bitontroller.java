@@ -37,6 +37,17 @@ public class Bitontroller {
         PageInfo<Block> blockPageInfo = blocks.toPageInfo();
         return  blockPageInfo;
     }
+    @GetMapping("/block_detailbyheight")
+    public List<Block> block_detail(@RequestParam(required = false,defaultValue = "")Integer height ){
+        List<Block> blocksbyheight = bitcoinListService.getblock_detail(height);
+        return blocksbyheight;
+    }
+    @GetMapping("/block_detailbyhash")
+    public List<Block> block_detailbyhash(@RequestParam(required = false,defaultValue = "")String hash){
+        List<Block> blocksbyhash = bitcoinListService.getblock_detailbyhash(hash);
+        return blocksbyhash;
+    }
+
     @GetMapping("/searchall")
     public Object search(@RequestParam(required = false)String searchname){
         if(searchname!=null){
