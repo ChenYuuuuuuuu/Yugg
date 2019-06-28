@@ -1,6 +1,7 @@
 package io.chenyu.bitcoinexplorer0612.controller;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.chenyu.bitcoinexplorer0612.dao.TransactionMapper;
 import io.chenyu.bitcoinexplorer0612.po.Transaction;
@@ -25,14 +26,27 @@ public class TransactionController {
     @Autowired
     private Transaction_detailService transaction_detailService;
     @GetMapping("/transactionlist")
-   public PageInfo<Transaction> search(@RequestParam(required = false,defaultValue = "")String txhash){
+   public PageInfo<Transaction> search(@RequestParam(required = false,defaultValue = "")String txhash,
+                                       @RequestParam(required = false,defaultValue = "1")Integer Pagenum ){
+        PageHelper.startPage(Pagenum,5);
         Page<Transaction> transactions = transactionListService.search(txhash);
         PageInfo<Transaction> transactionPageInfo = transactions.toPageInfo();
         return transactionPageInfo;
     }
+    @GetMapping("/transactionlist2")
+    public PageInfo<Transaction> search2(@RequestParam(required = false,defaultValue = "")String txhash,
+                                        @RequestParam(required = false,defaultValue = "1")Integer Pagenum ){
+        PageHelper.startPage(Pagenum,3100);
+        Page<Transaction> transactions = transactionListService.search(txhash);
+        PageInfo<Transaction> transactionPageInfo = transactions.toPageInfo();
+        return transactionPageInfo;
+    }
+
     @GetMapping("/transaction_detailbyhash")
     public List<Transaction_detail> getdetailbyhash(@RequestParam(required = false,defaultValue = "")String  txhash){
         List<Transaction_detail> transaction_details = transaction_detailService.gettransaction_detailbyhash(txhash);
         return transaction_details;
     }
+
+
 }

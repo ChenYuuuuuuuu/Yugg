@@ -22,4 +22,9 @@ public class Tran_deatilService implements Transaction_detailService {
     public List<Transaction_detail> gettransaction_detailbyhash(String txhash) {
         return transaction_detailMapper.gettransaction_detailbyhash(txhash);
     }
+
+    @Override
+    public Page<Transaction_detail> searchbyaddress(String address) {
+        return transaction_detailMapper.searchbyaddress(address);
+    }
 }

@@ -12,9 +12,9 @@ public interface BitcoinListService {
     Block searchbyHeight(@Param("height") Integer height);
 
 
-    List<Block> searchbyhash(@Param("blockhash") String blockhash);
+    Page<Block> searchbyhash(@Param("blockhash") String blockhash);
 
-    List<Block> getblock_detail(@Param("height") Integer height);
+    Page<Block> getblock_detail(@Param("height") Integer height);
 
-    List<Block> getblock_detailbyhash(@Param("hash") String hash);
+    Page<Block> getblock_detailbyhash(@Param("hash") String hash);
 }

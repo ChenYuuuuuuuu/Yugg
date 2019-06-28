@@ -32,20 +32,31 @@ public class Bitontroller {
     public PageInfo<Block> blockList(@RequestParam(required = false,defaultValue = "")Integer height,
                                     @RequestParam(required = false,defaultValue = "")String blockhash,
                                     @RequestParam(required = false,defaultValue = "1")Integer pageNum){
+        PageHelper.startPage(pageNum,5);
+        Page<Block> blocks = bitcoinListService.search(height, blockhash);
+        PageInfo<Block> blockPageInfo = blocks.toPageInfo();
+        return  blockPageInfo;
+    }
+    @GetMapping("/blocklist2")
+    public PageInfo<Block> blockList2(@RequestParam(required = false,defaultValue = "")Integer height,
+                                     @RequestParam(required = false,defaultValue = "")String blockhash,
+                                     @RequestParam(required = false,defaultValue = "1")Integer pageNum){
         PageHelper.startPage(pageNum,100);
         Page<Block> blocks = bitcoinListService.search(height, blockhash);
         PageInfo<Block> blockPageInfo = blocks.toPageInfo();
         return  blockPageInfo;
     }
     @GetMapping("/block_detailbyheight")
-    public List<Block> block_detail(@RequestParam(required = false,defaultValue = "")Integer height ){
-        List<Block> blocksbyheight = bitcoinListService.getblock_detail(height);
-        return blocksbyheight;
+    public PageInfo<Block> block_detail(@RequestParam(required = false,defaultValue = "")Integer height ){
+        Page<Block> blocks = bitcoinListService.getblock_detail(height);
+        PageInfo<Block> blockPageInfo = blocks.toPageInfo();
+        return blockPageInfo;
     }
     @GetMapping("/block_detailbyhash")
-    public List<Block> block_detailbyhash(@RequestParam(required = false,defaultValue = "")String hash){
-        List<Block> blocksbyhash = bitcoinListService.getblock_detailbyhash(hash);
-        return blocksbyhash;
+    public PageInfo<Block> block_detailbyhash(@RequestParam(required = false,defaultValue = "")String hash){
+        Page<Block> blocks = bitcoinListService.getblock_detailbyhash(hash);
+        PageInfo<Block> blockPageInfo = blocks.toPageInfo();
+        return blockPageInfo;
     }
 
     @GetMapping("/searchall")

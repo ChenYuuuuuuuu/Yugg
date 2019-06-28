@@ -10,4 +10,6 @@ public interface Transaction_detailService {
     Page<Transaction_detail> search(@Param("tx_id") Integer tx_id);
 
     List<Transaction_detail> gettransaction_detailbyhash(@Param("txhash") String txhash);
+
+    Page<Transaction_detail> searchbyaddress(@Param("address") String address);
 }

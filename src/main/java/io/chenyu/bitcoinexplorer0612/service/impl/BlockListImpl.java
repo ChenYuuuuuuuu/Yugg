@@ -26,17 +26,17 @@ public class BlockListImpl implements BitcoinListService {
     }
 
     @Override
-    public List<Block> searchbyhash(String blockhash) {
+    public Page<Block> searchbyhash(String blockhash) {
         return blockMapper.searchbyhash(blockhash);
     }
 
     @Override
-    public List<Block> getblock_detail(Integer height) {
+    public Page<Block> getblock_detail(Integer height) {
         return blockMapper.getblock_detail(height);
     }
 
     @Override
-    public List<Block> getblock_detailbyhash(String hash) {
+    public Page<Block> getblock_detailbyhash(String hash) {
         return blockMapper.getblock_detailbyhash(hash);
     }
 

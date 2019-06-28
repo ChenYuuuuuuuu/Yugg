@@ -25,4 +25,10 @@ public class Tran_detailController {
         PageInfo<Transaction_detail> transaction_detailPageInfo = transaction_details.toPageInfo();
         return transaction_detailPageInfo;
     }
+    @GetMapping("/tran_detailbyaddress")
+    public PageInfo<Transaction_detail> tran_detailbyaddress(@RequestParam(required = false,defaultValue = "")String address ){
+        Page<Transaction_detail> searchbyaddress = transaction_detailService.searchbyaddress(address);
+        PageInfo<Transaction_detail> transaction_detailPageInfo = searchbyaddress.toPageInfo();
+        return transaction_detailPageInfo;
+    }
 }
